@@ -9,16 +9,30 @@ URL for this website: https://github.com/sliu353/ComputerScienceFacultyWebsite
 
 Some screen shots: 
 
+Home Page
+
 ![alt tag](https://github.com/sliu353/ComputerScienceFacultyWebsite/blob/master/HomePage.PNG)
+
+Notices
 
 ![alt tag](https://github.com/sliu353/ComputerScienceFacultyWebsite/blob/master/NoticesPage.PNG)
 
+People in the faculty
+
 ![alt tag](https://github.com/sliu353/ComputerScienceFacultyWebsite/blob/master/PeoplePage.PNG)
+
+Leave a comment and view others' comments
 
 ![alt tag](https://github.com/sliu353/ComputerScienceFacultyWebsite/blob/master/Comment.PNG)
 
+Notices viewed on an iPhone6 plus
+
 ![alt tag](https://github.com/sliu353/ComputerScienceFacultyWebsite/blob/master/NoticesPageOnIPhone6Plus.PNG)
 
+Courses viewed on mobile view
+
 ![alt tag](https://github.com/sliu353/ComputerScienceFacultyWebsite/blob/master/CoursesPage.PNG)
+
+faculty news viewed on iPad
 
 ![alt tag](https://github.com/sliu353/ComputerScienceFacultyWebsite/blob/master/NewsOnIPad.PNG)
