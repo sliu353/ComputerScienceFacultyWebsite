@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="https://cdn.auckland.ac.nz/designs/global/favicon.png">
+    <script src="script.js" async></script>
+</head>
+<body>
+    <div class="background-div"></div>
+    <div class="container">
+        <div class="navbar-wrapper">
+            <ul class="topnav hiden-nav-for-small-screen">
+                <li><a href="#" class="active" id="home-tab" onclick="goToHome()">Home</a></li>
+                <li><a href="#" id="courses-tab" onclick="goToCourses()">Courses</a></li>
+                <li><a href="#" id="people-tab" onclick="goToPeople()">People</a></li>
+                <li><a href="#" id="news-tab" onclick="goToNews()">News</a></li>
+                <li><a href="#" id="notices-tab" onclick="goToNotices()">Notices</a></li>
+                <li><a href="#" id="guestbook-tab" onclick="goToGuestBook()">Guest Book</a></li>
+            </ul>
+            <div class="dropdown">
+                <button class="dropbtn"><b>≡</b></button>
+                <ul class="dropdown-content topnav hiden-nav-for-large-screen">
+                    <li><a href="#" class="active" id="home-tab-mobile" onclick="goToHome()">Home</a></li>
+                    <li><a href="#" id="courses-tab-mobile" onclick="goToCourses()">Courses</a></li>
+                    <li><a href="#" id="people-tab-mobile" onclick="goToPeople()">People</a></li>
+                    <li><a href="#" id="news-tab-mobile" onclick="goToNews()">News</a></li>
+                    <li><a href="#" id="notices-tab-mobile" onclick="goToNotices()">Notices</a></li>
+                    <li><a href="#" id="guestbook-tab-mobile" onclick="goToGuestBook()">Guest Book</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row row-1 active-row" id="row-1">
+            <div class="lg-column-3 md-column-3 sm-column-3 xs-column-10">
+                <img class="logo" alt="Logo" src="http://redsox.tcs.auckland.ac.nz/ups/logo.svg" style="width: 50%; display: inline-block; vertical-align: middle; margin: auto; display: block; padding: 65px;">
+            </div>
+            <div class="lg-column-7 md-column-7 sm-column-6 xs-column-10">
+                <div class="homepage-content homepage-content-sm">
+                    <p>
+                        Welcome to New Zealand's leading computer science department.<br><br>
+                        We pride ourselves on the excellence of our staff and our students.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="row-2"></div>
+        <div class="row" id="row-3"></div>
+        <div class="row" id="row-4"></div>
+        <div class="row" id="row-5"></div>
+        <div class="row" id="row-6">
+            <div class="lg-column-5 md-column-5 sm-column-5 xs-column-10">
+                <form id="commentForm" class="wrapper" method="post" enctype="application/x-www-form-urlencoded">
+                    <h3>Leave a comment</h3>
+                    <div class="input-wrap">
+                        <h4>Name: </h4>
+                    </div>
+                    <div class="input-wrap">
+                        <input name="name" id="visitorName" type="text" />
+                    </div>
+                    <div class="input-wrap">
+                        <h4>Comment:</h4>
+                    </div>
+                    <div class="input-wrap">
+                        <textarea id="commentContent"></textarea>
+                        <input id="hiddenContent" type="hidden"/>
+                        <input id="submitButton" type="submit" />
+                    </div>
+                    <div class="input-wrap">
+                        <a class="button" onclick="submitComment()"><span>Submit</span></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <link href="style.css" rel="stylesheet" />
+</body>
+</html>
