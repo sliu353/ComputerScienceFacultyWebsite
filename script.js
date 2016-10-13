@@ -196,7 +196,7 @@ function showNotices(result) {
 var row6InitialContent = document.getElementById("row-6").innerHTML;
 
 function showGuestBook(result) {
-    row6 = document.getElementById("row-6");0
+    row6 = document.getElementById("row-6");
     row6.innerHTML = row6InitialContent + "<div class=\"lg-column-5 md-column-5 sm-column-5 xs-column-10\" ><div class=\"wrapper comments-wrapper\"><h3>Comments</h3>"
     + result + "</div></div>";
     showRow(row6, "guestbook");
