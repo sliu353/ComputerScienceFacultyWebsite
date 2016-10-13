@@ -1,4 +1,4 @@
-﻿body {
+body {
     margin: 0;
 }
 
@@ -127,19 +127,11 @@ input[type=text]:focus, textarea:focus {
     display: none;
 }
 
-/*.comments-wrapper > p
+.comments-wrapper > p
 {
-position: relative;
-width: 360px;
-height: 135px;
-padding: 0px;
-background: #FFFFFF;
--webkit-border-radius: 56px;
--moz-border-radius: 56px;
-border-radius: 56px;
-border: #3a60d1 solid 7px;
+word-break: break-all
 }
-
+/*
 .comments-wrapper > p:before 
 {
 content: '';
@@ -202,7 +194,7 @@ left: 259px;
         margin: auto;
         color: #3a60d1;
         font-size: 24px;
-        font-family: 'Lobster', cursive;
+		font-family: "Arial Black", Gadget, sans-serif;
     }
 
     .xs-column-5{
@@ -296,7 +288,7 @@ left: 259px;
 
         .homepage-content > p {
         position: absolute;
-        top: 0;
+        top: -30%;
         bottom: 0;
         left: 0;
         right: 0;
@@ -305,7 +297,7 @@ left: 259px;
         margin: auto;
         color: #3a60d1;
         font-size: 24px;
-        font-family: 'Lobster', cursive;
+		font-family: "Arial Black", Gadget, sans-serif;
         text-align: left;
     }
 
@@ -359,7 +351,7 @@ left: 259px;
 
         .homepage-content > p {
         position: absolute;
-        top: 0;
+        top: -30%;
         bottom: 0;
         left: 0;
         right: 0;
@@ -368,7 +360,7 @@ left: 259px;
         margin: auto;
         color: #3a60d1;
         font-size: 24px;
-        font-family: 'Lobster', cursive;
+		font-family: "Arial Black", Gadget, sans-serif;
         text-align: left;
     }
 }
@@ -420,7 +412,7 @@ left: 259px;
 
         .homepage-content > p {
         position: absolute;
-        top: 0;
+        top: -30%;
         bottom: 0;
         left: 0;
         right: 0;
@@ -429,7 +421,7 @@ left: 259px;
         margin: auto;
         color: #3a60d1;
         font-size: 24px;
-        font-family: 'Lobster', cursive;
+		font-family: "Arial Black", Gadget, sans-serif;
         text-align: left;
     }
 }
@@ -563,6 +555,10 @@ ul.topnav {
   transition: 0.5s;
 }
 
+#commentForm > div > .button span:after{
+	content: '⇧';
+}
+
 .button:hover span {
   padding-right: 25px;
 }
@@ -570,4 +566,8 @@ ul.topnav {
 .button:hover span:after {
   opacity: 1;
   right: 0;
+}
+
+.topnav a{
+	font-family: "Arial Black", Gadget, sans-serif;
 }
