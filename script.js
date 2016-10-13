@@ -1,4 +1,4 @@
-﻿function goToHome() {
+function goToHome() {
     showRow(document.getElementById("row-1"), "home");
 }
 
@@ -41,12 +41,7 @@ function goToNotices() {
 }
 
 function goToGuestBook() {
-    if (!document.getElementById("row-6").classList.contains("loaded")) {
-        getJsonObject("http://redsox.tcs.auckland.ac.nz/ups/UniProxService.svc/htmlcomments", 6);
-    }
-    else {
-        showRow(document.getElementById("row-6"), "guestbook");
-    }
+    getJsonObject("http://redsox.tcs.auckland.ac.nz/ups/UniProxService.svc/htmlcomments", 6);
 }
 
 function getJsonObject(uri, index) {
@@ -61,14 +56,16 @@ function getJsonObject(uri, index) {
                 break;
             case 3:
                 result = JSON.parse(xhr.responseText);
-                showPeople(result);
+				for (personNum in result.list)
+					showPerson(result.list[personNum]);
+                //showPeople(result);
                 break;
             case 4:
-                result = XML2jsobj(xhr.responseXML.documentElement);
+                result = XMLToJavascriptObject(xhr.responseXML.documentElement);
                 showNews(result);
                 break;
             case 5:
-                result = XML2jsobj(xhr.responseXML.documentElement);
+                result = XMLToJavascriptObject(xhr.responseXML.documentElement);
                 showNotices(result);
                 break;
             case 6:
@@ -79,32 +76,40 @@ function getJsonObject(uri, index) {
     xhr.send(null);
 }
 
-function showPeople(result) {
-    var html = "";
-    for (personNum in result.list) {
-        html += "<div class=\"lg-column-5 md-column-5 sm-column-5 sm-column-10\"><div class=\"wrapper\">";
-        firstName = result.list[personNum].firstname;
-        lastName = result.list[personNum].lastname;
-        if (firstName != undefined && lastName != undefined)
-            html += "<h3>" + firstName + " " + lastName + "</h3>";
-        else
-            html += "<h3> </h3>";
-        html += "<div class=\"lg-column-3 md-column-3 sm-column-4 xs-column-4\">"
-        if (result.list[personNum].imageId != undefined)
-            html += "<h4 class=\"people-image-wrap\"><img src=\"https:\/\/unidirectory.auckland.ac.nz\/people\/imageraw\/" + result.list[personNum].profileUrl[1]
-            + "\/" + result.list[personNum].imageId + "\/small\"></h4></div>";
-        else
-            html += "<h4 class=\"people-image-wrap\"><img src=\"https:\/\/unidirectory.auckland.ac.nz\/people\/imageraw\/" + result.list[personNum].profileUrl[1]
-            + "\/1\/small\"></h4></div>";
-        html += "<div class=\"lg-column-7 md-column-7 sm-column-6 xs-column-6\"><h4>Email:<a class=\"email-symbol\" href=\"mailto:" + result.list[personNum].emailAddresses[0] + "\">&nbsp;📨</a> </h4>";
-        for (emailNum in result.list[personNum].emailAddresses) {
-            html += "<p>" + result.list[personNum].emailAddresses[emailNum] + "</p>";
-        }
-        html += "</div></div></div>";
+function showPerson(personObject){
+	var xhr = new XMLHttpRequest();
+	var uri = "http:\/\/redsox.tcs.auckland.ac.nz\/ups\/UniProxService.svc\/person?u=" + personObject.profileUrl[1]
+	xhr.open("GET", uri, true);
+	xhr.onload = function(){
+	var html = "";
+    html += "<div class=\"lg-column-5 md-column-5 sm-column-5 sm-column-10\"><div class=\"wrapper\">";
+    firstName = personObject.firstname;
+    lastName = personObject.lastname;
+    if (firstName != undefined && lastName != undefined)
+        html += "<h3>" + firstName + " " + lastName + "</h3>";
+    else
+        html += "<h3> </h3>";
+    html += "<div class=\"lg-column-3 md-column-3 sm-column-4 xs-column-4\">"
+    if (personObject.imageId != undefined)
+        html += "<h4 class=\"people-image-wrap\"><img src=\"https:\/\/unidirectory.auckland.ac.nz\/people\/imageraw\/" + personObject.profileUrl[1]
+        + "\/" + personObject.imageId + "\/small\"></h4></div>";
+    else
+        html += "<h4 class=\"people-image-wrap\"><img src=\"https:\/\/unidirectory.auckland.ac.nz\/people\/imageraw\/" + personObject.profileUrl[1]
+        + "\/1\/small\"></h4></div>";
+    html += "<div class=\"lg-column-7 md-column-7 sm-column-6 xs-column-6\"><h4>Email<a class=\"email-symbol\" href=\"mailto:" + personObject.emailAddresses[0] + "\">📨</a>:</h4>";
+    for (emailNum in personObject.emailAddresses) {
+        html += "<p>" + personObject.emailAddresses[emailNum] + "</p>";
     }
+	var thisPerson = JSON.parse(xhr.responseText);
+	html += "<h4>Phone Number:</h4><p>" + (thisPerson.phoneNumbers[0].phone == undefined ? "Unknow" : thisPerson.phoneNumbers[0].phone) + "</p>";
+	html += "<h4>Save this person:<a class=\"email-symbol\" href=\"http:\/\/redsox.tcs.auckland.ac.nz\/ups\/UniProxService.svc\/vcard?u=" + personObject.profileUrl[1] + "\">👤</a></h4>";
+    html += "</div></div></div>";
     row3 = document.getElementById("row-3");
-    row3.innerHTML = html;
+	//var initialHTML = row3.innerHTML;
+	row3.innerHTML += html
     showRow(row3, "people");
+	}
+	xhr.send(null);
 }
 
 function showCourses(result) {
@@ -188,10 +193,11 @@ function showNotices(result) {
     showRow(row5, "notices");
 }
 
+var row6InitialContent = document.getElementById("row-6").innerHTML;
+
 function showGuestBook(result) {
-    row6 = document.getElementById("row-6");
-    rowContent = row6.innerHTML;
-    row6.innerHTML = rowContent + "<div class=\"lg-column-5 md-column-5 sm-column-5 xs-column-10\" ><div class=\"wrapper comments-wrapper\"><h3>Comments</h3>"
+    row6 = document.getElementById("row-6");0
+    row6.innerHTML = row6InitialContent + "<div class=\"lg-column-5 md-column-5 sm-column-5 xs-column-10\" ><div class=\"wrapper comments-wrapper\"><h3>Comments</h3>"
     + result + "</div></div>";
     showRow(row6, "guestbook");
 }
@@ -211,28 +217,18 @@ function submitComment() {
     var name = document.getElementById("visitorName").value;
     var content = document.getElementById("commentContent").value;
     var uri = "http:\/\/redsox.tcs.auckland.ac.nz\/ups\/UniProxService.svc\/comment?name=" + name;
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", uri, true);
-
+	var xhr = new XMLHttpRequest();  
+	xhr.open("POST", uri, true); 
+	xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8"); 
+	xhr.onload = function () {
+		goToGuestBook();
+	}
+	xhr.send(JSON.stringify(content));
 }
 
-/**
- * XML2jsobj v1.0
- * Converts XML to a JavaScript object
- * so it can be handled like a JSON message
- *
- * By Craig Buckler, @craigbuckler, http://optimalworks.net
- *
- * As featured on SitePoint.com:
- * http://www.sitepoint.com/xml-to-javascript-object/
- *
- * Please use as you wish at your own risk.
- */
-
-function XML2jsobj(node) {
-
+// This method convert XML to Javascript object.
+function XMLToJavascriptObject(node) {
     var data = {};
-
     // append a value
     function Add(name, value) {
         if (data[name]) {
@@ -245,23 +241,21 @@ function XML2jsobj(node) {
             data[name] = value;
         }
     };
-
     // element attributes
-    var c, cn;
-    for (c = 0; cn = node.attributes[c]; c++) {
-        Add(cn.name, cn.value);
+    var counter, currentNode;
+    for (counter = 0; currentNode = node.attributes[counter]; counter++) {
+        Add(currentNode.name, currentNode.value);
     }
-
     // child elements
-    for (c = 0; cn = node.childNodes[c]; c++) {
-        if (cn.nodeType == 1) {
-            if (cn.childNodes.length == 1 && cn.firstChild.nodeType == 3) {
+    for (counter = 0; currentNode = node.childNodes[counter]; counter++) {
+        if (currentNode.nodeType == 1) {
+            if (currentNode.childNodes.length == 1 && currentNode.firstChild.nodeType == 3) {
                 // text value
-                Add(cn.nodeName, cn.firstChild.nodeValue);
+                Add(currentNode.nodeName, currentNode.firstChild.nodeValue);
             }
             else {
                 // sub-object
-                Add(cn.nodeName, XML2jsobj(cn));
+                Add(currentNode.nodeName, XMLToJavascriptObject(currentNode));
             }
         }
     }
