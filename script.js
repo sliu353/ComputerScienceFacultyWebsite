@@ -250,11 +250,9 @@ function XMLToJavascriptObject(node) {
     for (counter = 0; currentNode = node.childNodes[counter]; counter++) {
         if (currentNode.nodeType == 1) {
             if (currentNode.childNodes.length == 1 && currentNode.firstChild.nodeType == 3) {
-                // text value
                 Add(currentNode.nodeName, currentNode.firstChild.nodeValue);
             }
             else {
-                // sub-object
                 Add(currentNode.nodeName, XMLToJavascriptObject(currentNode));
             }
         }
