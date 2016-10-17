@@ -1,3 +1,25 @@
+function showContent(num) {
+    switch (num) {
+        case 1:
+            goToHome();
+            break;
+        case 2:
+            goToCourses();
+            break;
+        case 3:
+            goToPeople();
+            break;
+        case 4:
+            goToNews();
+            break;
+        case 5:
+            goToNotices();
+            break;
+        case 6:
+            goToGuestBook();
+    }
+}
+
 function goToHome() {
     showRow(document.getElementById("row-1"), "home");
 }
@@ -56,8 +78,8 @@ function getJsonObject(uri, index) {
                 break;
             case 3:
                 result = JSON.parse(xhr.responseText);
-				for (personNum in result.list)
-					showPerson(result.list[personNum]);
+                for (personNum in result.list)
+                    showPerson(result.list[personNum]);
                 //showPeople(result);
                 break;
             case 4:
@@ -76,40 +98,40 @@ function getJsonObject(uri, index) {
     xhr.send(null);
 }
 
-function showPerson(personObject){
-	var xhr = new XMLHttpRequest();
-	var uri = "http:\/\/redsox.tcs.auckland.ac.nz\/ups\/UniProxService.svc\/person?u=" + personObject.profileUrl[1]
-	xhr.open("GET", uri, true);
-	xhr.onload = function(){
-	var html = "";
-    html += "<div class=\"lg-column-5 md-column-5 sm-column-5 sm-column-10\"><div class=\"wrapper\">";
-    firstName = personObject.firstname;
-    lastName = personObject.lastname;
-    if (firstName != undefined && lastName != undefined)
-        html += "<h3>" + firstName + " " + lastName + "</h3>";
-    else
-        html += "<h3> </h3>";
-    html += "<div class=\"lg-column-3 md-column-3 sm-column-4 xs-column-4\">"
-    if (personObject.imageId != undefined)
-        html += "<h4 class=\"people-image-wrap\"><img src=\"https:\/\/unidirectory.auckland.ac.nz\/people\/imageraw\/" + personObject.profileUrl[1]
-        + "\/" + personObject.imageId + "\/small\"></h4></div>";
-    else
-        html += "<h4 class=\"people-image-wrap\"><img src=\"https:\/\/unidirectory.auckland.ac.nz\/people\/imageraw\/" + personObject.profileUrl[1]
-        + "\/1\/small\"></h4></div>";
-    html += "<div class=\"lg-column-7 md-column-7 sm-column-6 xs-column-6\"><h4>Email<a class=\"email-symbol\" href=\"mailto:" + personObject.emailAddresses[0] + "\">📨</a>:</h4>";
-    for (emailNum in personObject.emailAddresses) {
-        html += "<p>" + personObject.emailAddresses[emailNum] + "</p>";
+function showPerson(personObject) {
+    var xhr = new XMLHttpRequest();
+    var uri = "http:\/\/redsox.tcs.auckland.ac.nz\/ups\/UniProxService.svc\/person?u=" + personObject.profileUrl[1]
+    xhr.open("GET", uri, true);
+    xhr.onload = function () {
+        var html = "";
+        html += "<div class=\"lg-column-5 md-column-5 sm-column-5 sm-column-10\"><div class=\"wrapper\">";
+        firstName = personObject.firstname;
+        lastName = personObject.lastname;
+        if (firstName != undefined && lastName != undefined)
+            html += "<h3>" + firstName + " " + lastName + "</h3>";
+        else
+            html += "<h3> </h3>";
+        html += "<div class=\"lg-column-3 md-column-3 sm-column-4 xs-column-4\">"
+        if (personObject.imageId != undefined)
+            html += "<h4 class=\"people-image-wrap\"><img src=\"https:\/\/unidirectory.auckland.ac.nz\/people\/imageraw\/" + personObject.profileUrl[1]
+            + "\/" + personObject.imageId + "\/small\"></h4></div>";
+        else
+            html += "<h4 class=\"people-image-wrap\"><img src=\"https:\/\/unidirectory.auckland.ac.nz\/people\/imageraw\/" + personObject.profileUrl[1]
+            + "\/1\/small\"></h4></div>";
+        html += "<div class=\"lg-column-7 md-column-7 sm-column-6 xs-column-6\"><h4>Email<a class=\"email-symbol\" href=\"mailto:" + personObject.emailAddresses[0] + "\">📨</a>:</h4>";
+        for (emailNum in personObject.emailAddresses) {
+            html += "<p>" + personObject.emailAddresses[emailNum] + "</p>";
+        }
+        var thisPerson = JSON.parse(xhr.responseText);
+        html += "<h4>Phone Number:</h4><p>" + (thisPerson.phoneNumbers[0].phone == undefined ? "Unknow" : thisPerson.phoneNumbers[0].phone) + "</p>";
+        html += "<h4>Save this person:<a class=\"email-symbol\" href=\"http:\/\/redsox.tcs.auckland.ac.nz\/ups\/UniProxService.svc\/vcard?u=" + personObject.profileUrl[1] + "\">👤</a></h4>";
+        html += "</div></div></div>";
+        row3 = document.getElementById("row-3");
+        //var initialHTML = row3.innerHTML;
+        row3.innerHTML += html
+        showRow(row3, "people");
     }
-	var thisPerson = JSON.parse(xhr.responseText);
-	html += "<h4>Phone Number:</h4><p>" + (thisPerson.phoneNumbers[0].phone == undefined ? "Unknow" : thisPerson.phoneNumbers[0].phone) + "</p>";
-	html += "<h4>Save this person:<a class=\"email-symbol\" href=\"http:\/\/redsox.tcs.auckland.ac.nz\/ups\/UniProxService.svc\/vcard?u=" + personObject.profileUrl[1] + "\">👤</a></h4>";
-    html += "</div></div></div>";
-    row3 = document.getElementById("row-3");
-	//var initialHTML = row3.innerHTML;
-	row3.innerHTML += html
-    showRow(row3, "people");
-	}
-	xhr.send(null);
+    xhr.send(null);
 }
 
 function showCourses(result) {
@@ -118,7 +140,7 @@ function showCourses(result) {
         //console.log(result.courses.coursePaperSection[courseNum]);
         html += "<div class=\"lg-column-5 md-column-5 sm-column-5 sm-column-10\"><div class=\"wrapper\">";
         var subject = result.courses.coursePaperSection[courseNum].subject;
-        if (subject != undefined){
+        if (subject != undefined) {
             html += "<h3>" + subject.courseA + "</h3>"
             + "<p><b>Points:</b>" + subject.points + "</p>";
         }
@@ -217,19 +239,18 @@ function submitComment() {
     var name = document.getElementById("visitorName").value;
     var content = document.getElementById("commentContent").value;
     var uri = "http:\/\/redsox.tcs.auckland.ac.nz\/ups\/UniProxService.svc\/comment?name=" + name;
-	var xhr = new XMLHttpRequest();  
-	xhr.open("POST", uri, true); 
-	xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8"); 
-	xhr.onload = function () {
-		goToGuestBook();
-	}
-	xhr.send(JSON.stringify(content));
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", uri, true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.onload = function () {
+        goToGuestBook();
+    }
+    xhr.send(JSON.stringify(content));
 }
 
 // This method convert XML to Javascript object.
 function XMLToJavascriptObject(node) {
     var data = {};
-    // append a value
     function Add(name, value) {
         if (data[name]) {
             if (data[name].constructor != Array) {

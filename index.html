@@ -12,22 +12,22 @@
     <div class="container">
         <div class="navbar-wrapper">
             <ul class="topnav hiden-nav-for-small-screen">
-                <li><a href="#" class="active" id="home-tab" onclick="goToHome()">Home</a></li>
-                <li><a href="#" id="courses-tab" onclick="goToCourses()">Courses</a></li>
-                <li><a href="#" id="people-tab" onclick="goToPeople()">People</a></li>
-                <li><a href="#" id="news-tab" onclick="goToNews()">News</a></li>
-                <li><a href="#" id="notices-tab" onclick="goToNotices()">Notices</a></li>
-                <li><a href="#" id="guestbook-tab" onclick="goToGuestBook()">Guest Book</a></li>
+                <li><a href="#" class="active" id="home-tab" onclick="showContent(1)">Home</a></li>
+                <li><a href="#" id="courses-tab" onclick="showContent(2)">Courses</a></li>
+                <li><a href="#" id="people-tab" onclick="showContent(3)">People</a></li>
+                <li><a href="#" id="news-tab" onclick="showContent(4)">News</a></li>
+                <li><a href="#" id="notices-tab" onclick="showContent(5)">Notices</a></li>
+                <li><a href="#" id="guestbook-tab" onclick="showContent(6)">Guest Book</a></li>
             </ul>
             <div class="dropdown">
                 <button class="dropbtn"><b>≡</b></button>
                 <ul class="dropdown-content topnav hiden-nav-for-large-screen">
-                    <li><a href="#" class="active" id="home-tab-mobile" onclick="goToHome()">Home</a></li>
-                    <li><a href="#" id="courses-tab-mobile" onclick="goToCourses()">Courses</a></li>
-                    <li><a href="#" id="people-tab-mobile" onclick="goToPeople()">People</a></li>
-                    <li><a href="#" id="news-tab-mobile" onclick="goToNews()">News</a></li>
-                    <li><a href="#" id="notices-tab-mobile" onclick="goToNotices()">Notices</a></li>
-                    <li><a href="#" id="guestbook-tab-mobile" onclick="goToGuestBook()">Guest Book</a></li>
+                    <li><a href="#" class="active" id="home-tab-mobile" onclick="showContent(1)">Home</a></li>
+                    <li><a href="#" id="courses-tab-mobile" onclick="showContent(2)">Courses</a></li>
+                    <li><a href="#" id="people-tab-mobile" onclick="showContent(3)">People</a></li>
+                    <li><a href="#" id="news-tab-mobile" onclick="showContent(4)">News</a></li>
+                    <li><a href="#" id="notices-tab-mobile" onclick="showContent(5)">Notices</a></li>
+                    <li><a href="#" id="guestbook-tab-mobile" onclick="showContent(6)">Guest Book</a></li>
                 </ul>
             </div>
         </div>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="input-wrap">
                         <textarea id="commentContent"></textarea>
-                        <input id="hiddenContent" type="hidden"/>
+                        <input id="hiddenContent" type="hidden" />
                         <input id="submitButton" type="submit" />
                     </div>
                     <div class="input-wrap">
